@@ -1,13 +1,31 @@
-* Title
+#+TITLE: Extending the simple web server
+#+AUTHOR: Daniele Santoro
+#+DATE: 26/09/2015
+
 * Introduction
+  The *TinyHttpd* java application is a simple and lightweight HTTP server which outputs the content of a file present in the file-system to a web browser or any client requesting it by specifying its path in the URL.
+  
+  This extension allows the server to start a process if the resource ID of the URL starts with the keyword /process/. Moreover it parses the resource Id to look for the presence of a query-string in which parameters are present. If the query-string is found and in it are present at least two numeric parameters, they are passed to the external process to perform the addition.
 * Implementation
+  The implementation can be summarized in few parts:
+  1) Add a parser in order to check for the presence of the keywords in the resource ID. This part is the more complex since it must foresee all the possible exceptions a user may enter in the URL.
+  2) To start an external process I've created a private method which can be called passing no parameters or two parameters, in this way the same method is called if there are parameters in the query-string or not.
+
+     I've choose to use a java pre-compiled program as external process to be sure it will works in all the operating system where the JRE is present. Another solution would be to use a bash script but it would have worked only on UNIX systems.
+  3) To print the result into the web-page the http-server which starts the external process needs to get the output of it and grab the result using a specific protocol: =result:XX=.
 * Deployment
+  The code is packaged as an Eclipse project but can also be run from the terminal. Here are instruction how to do:
   1) From inside Eclipse
+     - Just import the project in Eclipse and run.
   2) From terminal
-     #+BEGIN_EXAMPLE
-     cd TinyHttpd/src
-     javac tinyhttpd/TinyHttpd.java
-     javac add.java
-     java tinyhttpd.TinyHttpd
-     #+END_EXAMPLE
+     - Program can be started following these steps:
+       #+BEGIN_EXAMPLE
+       cd TinyHttpd/src
+       javac tinyhttpd/TinyHttpd.java
+       javac add.java
+       java tinyhttpd.TinyHttpd
+       #+END_EXAMPLE
 * Comments and notes
+  In my opinion the trivial part is the one that manages the query-string parsing. In a malformed query-string may be many exceptions and special chars to care about. In my code I did not cover the exceptions for all the possible inputs, but just the most recurring.
+
+  In my code, I've just changed the default class of the =TinyHttpdConnection=, but another better way to implement the functionality may be to extends the =TinyHttpdConnection= class adding more functionality but relying on its code for the basic ones.
