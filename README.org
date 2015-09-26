@@ -3,6 +3,8 @@
 #+DATE: 26/09/2015
 
 * Introduction
+  Code and documentation are present at this link: https://github.com/acca/TinyHttpd
+
   The *TinyHttpd* java application is a simple and lightweight HTTP server which outputs the content of a file present in the file-system to a web browser or any client requesting it by specifying its path in the URL.
   
   This extension allows the server to start a process if the resource ID of the URL starts with the keyword /process/. Moreover it parses the resource Id to look for the presence of a query-string in which parameters are present. If the query-string is found and in it are present at least two numeric parameters, they are passed to the external process to perform the addition.
