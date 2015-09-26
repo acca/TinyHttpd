@@ -1,0 +1,13 @@
+* Title
+* Introduction
+* Implementation
+* Deployment
+  1) From inside Eclipse
+  2) From terminal
+     #+BEGIN_EXAMPLE
+     cd TinyHttpd/src
+     javac tinyhttpd/TinyHttpd.java
+     javac add.java
+     java tinyhttpd.TinyHttpd
+     #+END_EXAMPLE
+* Comments and notes
